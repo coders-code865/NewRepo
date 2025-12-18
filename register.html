@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+    <link rel="stylesheet" href="./css/auth.css" />
+  </head>
+  <body>
+    <div class="auth-box">
+      <h2>Register</h2>
+
+      <div class="registerForm">
+        <input type="text" class="regName" placeholder="Full Name" required />
+        <input type="email" class="regEmail" placeholder="Email" required />
+        <input
+          type="password"
+          class="regPassword"
+          placeholder="Password"
+          required
+        />
+
+        <!-- Optional Admin creation -->
+        <!-- <input type="hidden" id="regRole" value="admin"> -->
+
+        <button class="regCreateAccount">Create Account</button>
+      </div>
+
+      <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+    <script src="./js/register.js"></script>
+  </body>
+</html>

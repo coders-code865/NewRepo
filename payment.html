@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Payment - Sunrise Hotel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      :root {
+        --orange: #f97316;
+        --orange-dark: #ea580c;
+        --bg-lightblue: #f2f6ff;
+        --card-blue: #e9f0ff;
+        --text-dark: #0b1a3a;
+        --text-soft: #4b5f86;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: system-ui, Arial, sans-serif;
+      }
+
+      body {
+        background: var(--bg-lightblue);
+        color: var(--text-dark);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .payment-card {
+        background: white;
+        width: 100%;
+        max-width: 480px;
+        border-radius: 1.5rem;
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.2);
+        padding: 24px;
+        animation: pop 0.3s ease;
+        position: relative;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        font-size: 1.6rem;
+        cursor: pointer;
+      }
+
+      .payment-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 1rem;
+        margin-bottom: 12px;
+      }
+
+      h2 {
+        color: var(--orange);
+        margin-bottom: 6px;
+      }
+
+      .price {
+        font-weight: 600;
+        margin-bottom: 14px;
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      label {
+        font-size: 0.85rem;
+        color: var(--text-soft);
+      }
+
+      input {
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #cbd5e1;
+        font-size: 0.95rem;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin: 14px 0;
+      }
+
+      .tab-btn {
+        flex: 1;
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px solid var(--orange);
+        background: transparent;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .tab-btn.active {
+        background: var(--orange);
+        color: white;
+      }
+
+      .pay-box {
+        display: none;
+        background: var(--card-blue);
+        padding: 14px;
+        border-radius: 12px;
+      }
+
+      .pay-box.active {
+        display: block;
+      }
+
+      .btn-primary {
+        background: var(--orange);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 6px;
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid var(--orange);
+        color: var(--orange);
+        padding: 10px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .total {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #0b1a3a;
+      }
+
+      @keyframes pop {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="payment-card">
+      <span class="close-btn" onclick="goBack()">×</span>
+
+      <img
+        id="roomImage"
+        alt="  this img element will hold the image of the room selected."
+      />
+      <h2 id="roomName">name</h2>
+      <div class="price" id="roomPrice">ugx</div>
+
+      <form id="paymentForm">
+        <label>Check-in Date</label>
+        <input type="date" id="checkIn" required />
+
+        <label>Check-out Date</label>
+        <input type="date" id="checkOut" required />
+
+        <label>Number of People</label>
+        <input type="number" id="guests" min="1" required />
+
+        <label>Phone Number</label>
+        <input type="tel" id="phone" required placeholder="+256..." />
+
+        <div class="tabs">
+          <button type="button" class="tab-btn active" onclick="showMoMo()">
+            MoMo
+          </button>
+          <button type="button" class="tab-btn" onclick="showBank()">
+            Bank
+          </button>
+        </div>
+
+        <!-- MOMO -->
+        <div class="pay-box active" id="momoBox">
+          <p>Mobile Money Payment</p>
+          <input type="tel" placeholder="MoMo Number" />
+        </div>
+
+        <!-- BANK -->
+        <div class="pay-box" id="bankBox">
+          <input type="text" placeholder="Account Name" />
+          <input type="text" placeholder="Bank Name" />
+          <input type="text" placeholder="Account Number" />
+        </div>
+
+        <div class="total" id="totalAmount">Total: UGX 200,000</div>
+
+        <button class="btn-primary" type="submit">Confirm Payment</button>
+        <button class="btn-outline" type="button" onclick="goBack()">
+          Cancel
+        </button>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById("roomImage").src = "";
+      document.getElementById("roomName").textContent = "";
+      document.getElementById("roomPrice").textContent = "UGX 50,000 / night";
+
+      const checkIn = document.getElementById("checkIn");
+      const checkOut = document.getElementById("checkOut");
+      const totalAmount = document.getElementById("totalAmount");
+
+      function calcTotal() {
+        if (checkIn.value && checkOut.value) {
+          const inDate = new Date(checkIn.value);
+          const outDate = new Date(checkOut.value);
+          const nights = Math.ceil((outDate - inDate) / (1000 * 60 * 60 * 24));
+
+          if (nights > 0) {
+            const total = nights * booking.price;
+            totalAmount.textContent = "Total: $" + total;
+          }
+        }
+      }
+
+      checkIn.addEventListener("change", calcTotal);
+      checkOut.addEventListener("change", calcTotal);
+
+      function showMoMo() {
+        document.getElementById("momoBox").classList.add("active");
+        document.getElementById("bankBox").classList.remove("active");
+        document.querySelectorAll(".tab-btn")[0].classList.add("active");
+        document.querySelectorAll(".tab-btn")[1].classList.remove("active");
+      }
+
+      function showBank() {
+        document.getElementById("bankBox").classList.add("active");
+        document.getElementById("momoBox").classList.remove("active");
+        document.querySelectorAll(".tab-btn")[1].classList.add("active");
+        document.querySelectorAll(".tab-btn")[0].classList.remove("active");
+      }
+
+      function goBack() {
+        window.location.href = "rooms.html";
+      }
+
+      document
+        .getElementById("paymentForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Payment Successful (Demo)");
+          localStorage.removeItem("booking");
+          window.location.href = "index.html";
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Impala Suites</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --orange: #f97316;
+        --bg-lightblue: #f2f6ff;
+        --text-dark: #0b1a3a;
+        --white: #fff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: var(--bg-lightblue);
+        color: var(--text-dark);
+      }
+
+      /* Header */
+      header {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(5px);
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+        color: var(--orange);
+        font-size: 1.3rem;
+      }
+      .logo img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        border-radius: 50%;
+      }
+      nav {
+        display: flex;
+        gap: 18px;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 600;
+      }
+      nav a img {
+        width: 23px;
+        height: 23px;
+      }
+      nav a:hover {
+        color: var(--orange);
+      }
+
+      /* Hero */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)),
+          url("./images/A3.jpeg") center/cover no-repeat;
+        color: white;
+      }
+      .hero h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        margin-bottom: 15px;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+      }
+      .hero p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      }
+      .hero-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-buttons a {
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        text-decoration: none;
+        background: var(--orange);
+        color: white;
+        transition: 0.2s;
+      }
+      .hero-buttons a:hover {
+        background: #ea580c;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 20px;
+        background: var(--white);
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      @media (max-width: 700px) {
+        nav {
+          display: none;
+        }
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .hero p {
+          font-size: 0.95rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <img src="./images/f2.jpeg" alt="Logo" />
+        Impala Suites
+      </div>
+      <nav>
+        <a href="rooms.html">Rooms</a>
+        <a href="login.html"><img src="./images/login.png" alt="" /></a>
+        <a href="admin.html"
+          ><img src="./images/manager.png" alt="manager"
+        /></a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Welcome to Impala Suites</h1>
+      <p>Comfortable rooms and easy booking. Start your stay today!</p>
+      <div class="hero-buttons">
+        <a href="rooms.html">View Rooms</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>© 2025 Impala Suites. All rights reserved.</footer>
+  </body>
+</html>
